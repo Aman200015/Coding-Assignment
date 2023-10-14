@@ -1,0 +1,202 @@
+Create a basic calculator using HTML, CSS, and JavaScript with the functionality of add,
+subtract, multiply and divide.
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Calculator</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        #display {
+            width: 100%;
+            height: 40px;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .buttons button {
+            width: 25%;
+            height: 40px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendToDisplay('/')">/</button>
+        </div>
+    </div>
+    <script>
+        let displayValue = '';
+
+        function appendToDisplay(value) {
+            displayValue += value;
+            document.getElementById('display').value = displayValue;
+        }
+
+        function clearDisplay() {
+            displayValue = '';
+            document.getElementById('display').value = displayValue;
+        }
+
+        function calculateResult() {
+            try {
+                const result = eval(displayValue);
+                displayValue = result;
+                document.getElementById('display').value = displayValue;
+            } catch (error) {
+                alert('Invalid input');
+                clearDisplay();
+            }
+        }
+
+    </script>
+</body>
+
+</html>
+
+
+Create a survey form with Fields; First Name, Last Name, Date of Birth, Country
+(dropdown), Gender (checkbox), Profession, email, and mobile number. All the input
+fields are necessary to submit the form. Create two buttons Submit and Reset. Reset will
+reset the form while clicking on submit, first, it will check all the fields and necessary
+validations and then a popup will appear displaying all the selected values with labels in
+front of it. On closing the popup, the form should reset all the values.
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Survey Form</title>
+</head>
+
+<body>
+    <h2>Survey Form</h2>
+    <form id="surveyForm">
+        <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+        </div>
+        <div>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+        </div>
+        <div>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+        </div>
+        <div>
+            <label for="country">Country:</label>
+            <select id="country" required>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+                <!-- Add more countries as needed -->
+            </select>
+        </div>
+        <div>
+            <label>Gender:</label>
+            <input type="checkbox" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+            <input type="checkbox" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+        </div>
+        <div>
+            <label for="profession">Profession:</label>
+            <input type="text" id="profession" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+        </div>
+        <div>
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" required>
+        </div>
+        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('surveyForm');
+            if (form.checkValidity()) {
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const dob = document.getElementById('dob').value;
+                const country = document.getElementById('country').value;
+                const genderElements = document.getElementsByName('gender');
+                const gender = Array.from(genderElements).filter(e => e.checked).map(e => e.value).join(', ');
+                const profession = document.getElementById('profession').value;
+                const email = document.getElementById('email').value;
+                const mobile = document.getElementById('mobile').value;
+
+                const message = `
+                    First Name: ${firstName}
+                    Last Name: ${lastName}
+                    Date of Birth: ${dob}
+                    Country: ${country}
+                    Gender: ${gender}
+                    Profession: ${profession}
+                    Email: ${email}
+                    Mobile Number: ${mobile}
+                `;
+
+                alert(message);
+
+                resetForm();
+            } else {
+                alert('Please fill out all the required fields.');
+            }
+        }
+
+        function resetForm() {
+            const form = document.getElementById('surveyForm');
+            form.reset();
+        }
+    </script>
+</body>
+
+</html>
